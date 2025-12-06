@@ -1,0 +1,37 @@
+steps:
+  # 1. Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-app:latest',
+        '.'
+      ]
+
+  # 2. Push image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-app:latest'
+      ]
+
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      [
+        'run',
+        'deploy',
+        'foodfreshness-api',
+        '--image',
+        'us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-app:latest',
+        '--region',
+        'us-central1',
+        '--platform',
+        'managed',
+        '--allow-unauthenticated'
+      ]
+
+images:
+  - 'us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-app:latest'
