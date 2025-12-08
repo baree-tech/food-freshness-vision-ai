@@ -7,33 +7,28 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      IMAGE: us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-freshness:${{ github.sha }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Authenticate to GCP
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/auth@v1
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: food-freshness-detector
-          export_default_credentials: true
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Configure Docker to push to Artifact Registry
         run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
 
       - name: Build Docker image
-        run: |
-          IMAGE=us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-freshness:$GITHUB_SHA
-          docker build -t $IMAGE .
+        run: docker build -t $IMAGE .
 
       - name: Push image to Artifact Registry
-        run: |
-          IMAGE=us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-freshness:$GITHUB_SHA
-          docker push $IMAGE
+        run: docker push $IMAGE
 
       - name: Deploy to Cloud Run
         run: |
-          IMAGE=us-central1-docker.pkg.dev/food-freshness-detector/food-freshness-repo/food-freshness:$GITHUB_SHA
           gcloud run deploy food-freshness-detection \
             --image $IMAGE \
             --region us-central1 \
