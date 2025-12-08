@@ -21,6 +21,16 @@
 - **Environment variables and service account authentication** for secure GCP access.
 
 ---
+## **Food Freshness Classes Detected**
+````
+| Food Type  | Freshness Classes |
+| ---------- | ----------------- |
+| Bread      | Fresh, Spoiled    |
+| Dairy      | Fresh, Spoiled    |
+| Fruits     | Fresh, Spoiled    |
+| Vegetables | Fresh, Spoiled    |
+````
+**Total Classes:** 8 (4 fresh + 4 spoiled)
 
 ## **Technologies Used**
 - **Python**: Main programming language
