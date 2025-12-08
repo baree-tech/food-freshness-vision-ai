@@ -1,6 +1,5 @@
 # Dockerfile
 FROM python:3.9-slim
-
 # system deps (for pillow, etc.)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
