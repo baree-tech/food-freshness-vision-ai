@@ -2,7 +2,6 @@
 
 ---
 
-```markdown
 # Food Freshness Vision AI 🍎🥦
 
 **Food Freshness Vision AI** is an end-to-end AI/ML project that automatically detects the freshness of food items using computer vision and deploys the solution on **Google Cloud Platform (GCP)** via **Cloud Run**. The project includes Dockerized deployment, CI/CD using **GitHub Actions**, and integration with **Artifact Registry**.
@@ -37,9 +36,8 @@
 
 ---
 
+````
 ## **Repository Structure**
-```
-
 .
 ├── .github/workflows/deploy.yaml   # CI/CD workflow for build & deploy
 ├── Dockerfile                      # Docker container configuration
@@ -120,9 +118,5 @@ Bareera Mushthak
 
 * AI/ML Engineer | Computer Vision | Cloud Deployment | CI/CD | Python | GCP
 
-```
-
----
 
 
-```
