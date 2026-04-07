@@ -15,11 +15,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Ensure TensorFlow version matches the version used to save the model
 RUN pip install tensorflow==2.20.0   # <-- update to your TF version
+
 # copy app and model
 COPY app.py .
 COPY templates ./templates
+
 # Cloud Run expects port 8080 by default
-ENV PORT=8080
+ENV PORT=8080 
 ENV MODEL_GCS_URI=gs://food-freshness-model/model/my_binary_class_model.h5
 # use gunicorn for production
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app", "--workers", "1", "--threads", "8"]
